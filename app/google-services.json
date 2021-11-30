@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "225194589678",
+    "project_id": "timerapp-7ca34",
+    "storage_bucket": "timerapp-7ca34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:225194589678:android:d33f5e56c1c0e015f1a2ff",
+        "android_client_info": {
+          "package_name": "edu.neu.madcourse.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "225194589678-84v8fh74c3m4043jh1io5u4p776od963.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSCBIIO1eVHlK9cHSTrCY6s3vcxWsQB2E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "225194589678-84v8fh74c3m4043jh1io5u4p776od963.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
