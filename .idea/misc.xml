@@ -4,6 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Telvin/workoutTimerMobileApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.27239583333333334" />
+        <entry key="app/src/main/res/layout/activity_startworkout.xml" value="0.21705313093558168" />
+        <entry key="app/src/main/res/layout/activity_workout.xml" value="0.20750305301274796" />
+        <entry key="app/src/main/res/layout/dialog.xml" value="0.23385416666666667" />
       </map>
     </option>
   </component>
