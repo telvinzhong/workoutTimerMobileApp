@@ -98,7 +98,6 @@ public class Time {
         timeArrayList.add(new Time("14","00"));
         timeArrayList.add(new Time("14","30"));
         timeArrayList.add(new Time("15","00"));
-        timeArrayList.add(new Time("15","30"));
     }
 
     public String getMinute() {

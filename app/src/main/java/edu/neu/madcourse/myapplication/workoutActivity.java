@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +16,11 @@ public class workoutActivity extends AppCompatActivity {
     private NumberPicker roundPicker;
     private NumberPicker breakTimePicker;
     private NumberPicker setPicker;
+    private TextView totalExerciseTime;
+    private TextView totalRestTime;
+    private TextView breaks;
+    private String totalTime;
+
     private Button ok;
     private Button exerciseTime;
     private Button round;
@@ -46,6 +52,9 @@ public class workoutActivity extends AppCompatActivity {
         round = findViewById(R.id.roundnumber);
         set = findViewById(R.id.setnumber);
         breakTime = findViewById(R.id.breaktime);
+        breaks = findViewById(R.id.breaks);
+        totalExerciseTime = findViewById(R.id.totalexercisetime);
+        totalRestTime = findViewById(R.id.totalresttime);
 
 
         exerciseTime.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +92,8 @@ public class workoutActivity extends AppCompatActivity {
             }
         });
 
+        calculateTime();
+//        toggleBreakTime();
 }
     public void show(String type)
     {
@@ -96,11 +107,14 @@ public class workoutActivity extends AppCompatActivity {
             exerciseTimePicker.setMaxValue(Time.getTimeArrayList().size() -1);
             exerciseTimePicker.setMinValue(0);
             exerciseTimePicker.setDisplayedValues(Time.timeString());
+            exerciseTimePicker.setValue(17);
+
+
             exerciseTimePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     exerciseTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
-
+                    calculateTime();
                 }
             });
 
@@ -114,10 +128,12 @@ public class workoutActivity extends AppCompatActivity {
             restTimePicker.setMaxValue(Time.getTimeArrayList().size() -1);
             restTimePicker.setMinValue(0);
             restTimePicker.setDisplayedValues(Time.timeString());
+            restTimePicker.setValue(8);
             restTimePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     restTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
+                    calculateTime();
                 }
             });
 
@@ -129,11 +145,13 @@ public class workoutActivity extends AppCompatActivity {
             ok = d.findViewById(R.id.ok);
             roundPicker.setMinValue(1);
             roundPicker.setMaxValue(10);
+            // Remember previous value
             roundPicker.setValue(Integer.parseInt(round.getText().toString()));
             roundPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     round.setText(String.valueOf(newValue));
+                    calculateTime();
                 }
             });
 
@@ -145,11 +163,14 @@ public class workoutActivity extends AppCompatActivity {
             ok = d.findViewById(R.id.ok);
             setPicker.setMinValue(1);
             setPicker.setMaxValue(10);
+            // Remember previous value
             setPicker.setValue(Integer.parseInt(set.getText().toString()));
             setPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     set.setText(String.valueOf(newValue));
+                    toggleBreakTime();
+                    calculateTime();
                 }
             });
         }
@@ -168,7 +189,6 @@ public class workoutActivity extends AppCompatActivity {
                     breakTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
                 }
             });
-
         }
 
         ok.setOnClickListener(new View.OnClickListener()
@@ -178,10 +198,37 @@ public class workoutActivity extends AppCompatActivity {
                 d.dismiss();
             }
         });
-
-
-
         d.show();
+    }
+    public void calculateTime(){
+        String et[] = exerciseTime.getText().toString().split(":");
+        String rt[] = restTime.getText().toString().split(":");
+
+        int totalET = Integer.parseInt(et[0]) * 60 * Integer.parseInt(round.getText().toString()) + Integer.parseInt(et[1]) * Integer.parseInt(round.getText().toString());;
+        int totalRT = Integer.parseInt(rt[0]) * 60 * Integer.parseInt(round.getText().toString()) + Integer.parseInt(rt[1]) * Integer.parseInt(round.getText().toString());;
+
+        if (Integer.parseInt(set.getText().toString()) != 1){
+            totalET = totalET * Integer.parseInt(set.getText().toString());
+        }
+        // convert time to seconds
+        // divide to get minute
+        totalExerciseTime.setText(totalET / 60 + ":" + String.format("%02d" , totalET % 60));
+
+        totalRestTime.setText(totalRT / 60 + ":" + String.format("%02d" , totalRT % 60));
+
+
+    }
+
+    public void toggleBreakTime(){
+        Log.d("set", set.getText().toString());
+        if(set.getText().toString().equals("1")){
+            breakTime.setVisibility(View.INVISIBLE);
+            breaks.setVisibility(View.INVISIBLE);
+        }
+        else{
+            breakTime.setVisibility(View.VISIBLE);
+            breaks.setVisibility(View.VISIBLE);
+        }
     }
 
 

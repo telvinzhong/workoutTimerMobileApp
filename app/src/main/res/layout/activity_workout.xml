@@ -11,7 +11,7 @@
         android:id="@+id/exercisetime"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:text="0:10"
+        android:text="3:00"
         app:layout_constraintBottom_toTopOf="@+id/resttime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -36,7 +36,7 @@
         android:id="@+id/roundnumber"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:text="1"
+        android:text="2"
         app:layout_constraintBottom_toTopOf="@+id/exercisetime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -61,7 +61,7 @@
         android:id="@+id/resttime"
         android:layout_width="200dp"
         android:layout_height="50dp"
-        android:text="0:10"
+        android:text="1:30"
         app:layout_constraintBottom_toTopOf="@+id/setnumber"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -112,6 +112,7 @@
         android:layout_width="100dp"
         android:layout_height="30dp"
         android:layout_marginBottom="32dp"
+        android:visibility="invisible"
         android:gravity="center"
         android:text="Break"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -128,7 +129,7 @@
         android:layout_height="50dp"
         android:layout_marginBottom="16dp"
         android:text="0:10"
-
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -162,7 +163,7 @@
         android:layout_marginBottom="492dp"
         android:text="Total Exercise Time: "
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView14"
+        app:layout_constraintEnd_toStartOf="@+id/totalexercisetime"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
@@ -174,13 +175,13 @@
         android:layout_marginBottom="448dp"
         android:text="Total Rest Time: "
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textView16"
+        app:layout_constraintEnd_toStartOf="@+id/totalresttime"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/totalresttime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="448dp"
@@ -191,7 +192,7 @@
         app:layout_constraintStart_toEndOf="@+id/textView15" />
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/totalexercisetime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="492dp"
