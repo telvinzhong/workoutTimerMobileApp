@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.content.Intent;
 
 public class StartWorkOut extends AppCompatActivity {
     private TextView countdownText;
@@ -13,6 +14,7 @@ public class StartWorkOut extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private long timeLeftInMillisecounds = 600000; //600000=10mins
     private boolean timeRunning;
+    private Button summaryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +23,7 @@ public class StartWorkOut extends AppCompatActivity {
 
         countdownText = findViewById(R.id.countdown_text);
         countdownButton = findViewById(R.id.countdown_button);
+        summaryButton = findViewById(R.id.summary_button);
         countdownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -28,6 +31,17 @@ public class StartWorkOut extends AppCompatActivity {
             }
         });
         updateTimer();
+
+        summaryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivitySummary();
+            }
+        });
+    }
+    public void openActivitySummary(){
+        Intent intent = new Intent(this, summary.class);
+        startActivity(intent);
     }
     public void startStop(){
         if (timeRunning){
