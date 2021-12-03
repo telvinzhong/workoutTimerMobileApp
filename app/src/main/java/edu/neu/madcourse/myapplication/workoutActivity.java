@@ -1,6 +1,7 @@
 package edu.neu.madcourse.myapplication;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ public class workoutActivity extends AppCompatActivity {
     private Button restTime;
     private Button set;
     private Button breakTime;
+    private Button starttimer;
     static Dialog d ;
 
     /**
@@ -46,7 +48,15 @@ public class workoutActivity extends AppCompatActivity {
         round = findViewById(R.id.roundnumber);
         set = findViewById(R.id.setnumber);
         breakTime = findViewById(R.id.breaktime);
+        starttimer = findViewById(R.id.starttimer);
 
+
+        starttimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivityStartWorkOut();
+            }
+        });
 
         exerciseTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +94,10 @@ public class workoutActivity extends AppCompatActivity {
         });
 
 }
+    public void openActivityStartWorkOut(){
+        Intent intent = new Intent(this, StartWorkOut.class);
+        startActivity(intent);
+    }
     public void show(String type)
     {
         final Dialog d = new Dialog(this);
