@@ -242,7 +242,6 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         // convert time to seconds
         // divide to get minute
         totalExerciseTime.setText(totalET / 60 + ":" + String.format("%02d" , totalET % 60));
-
         totalRestTime.setText(totalRT / 60 + ":" + String.format("%02d" , totalRT % 60));
 
 
