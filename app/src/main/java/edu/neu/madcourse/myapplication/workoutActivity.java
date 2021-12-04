@@ -5,23 +5,22 @@ import android.graphics.Color;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.TooltipCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
-import com.google.android.material.tooltip.TooltipDrawable;
 import com.tomergoldst.tooltips.ToolTip;
 import com.tomergoldst.tooltips.ToolTipsManager;
-import com.tooltip.Tooltip;
 
 public class workoutActivity extends AppCompatActivity implements ToolTipsManager.TipListener {
     private ConstraintLayout constraintLayout;
+    private int exercise_memory = 17;
+    private int rest_memory = 8;
+    private int break_memory = 11;
     private NumberPicker exerciseTimePicker;
     private NumberPicker restTimePicker;
     private NumberPicker roundPicker;
@@ -41,7 +40,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private Button set;
     private Button breakTime;
     private Button starttimer;
-    static Dialog d ;
+    static Dialog d;
 
     /**
      * round.getText().toString()
@@ -72,6 +71,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         setText = findViewById(R.id.set);
         toolTipsManager = new ToolTipsManager(this);
         constraintLayout = findViewById(R.id.constraintlayout);
+        starttimer = findViewById(R.id.starttimer);
 
         setText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,8 +79,6 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                 displayTooltip(ToolTip.POSITION_ABOVE, ToolTip.ALIGN_RIGHT);
             }
         });
-        starttimer = findViewById(R.id.starttimer);
-
 
         starttimer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,6 +125,8 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         calculateTime();
 }
 
+
+
     public void openActivityStartWorkOut(){
         Intent intent = new Intent(this, StartWorkOut.class);
         startActivity(intent);
@@ -143,13 +143,14 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
             exerciseTimePicker.setMaxValue(Time.getTimeArrayList().size() -1);
             exerciseTimePicker.setMinValue(0);
             exerciseTimePicker.setDisplayedValues(Time.timeString());
-            exerciseTimePicker.setValue(17);
+            exerciseTimePicker.setValue(exercise_memory);
 
 
             exerciseTimePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     exerciseTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
+                    exercise_memory = oldValue +1;
                     calculateTime();
                 }
             });
@@ -164,11 +165,12 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
             restTimePicker.setMaxValue(Time.getTimeArrayList().size() -1);
             restTimePicker.setMinValue(0);
             restTimePicker.setDisplayedValues(Time.timeString());
-            restTimePicker.setValue(8);
+            restTimePicker.setValue(rest_memory);
             restTimePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     restTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
+                    rest_memory = oldValue + 1;
                     calculateTime();
                 }
             });
@@ -219,12 +221,14 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
             breakTimePicker.setMaxValue(Time.getTimeArrayList().size() -1);
             breakTimePicker.setMinValue(0);
             breakTimePicker.setDisplayedValues(Time.timeString());
-            breakTimePicker.setValue(11);
+            // remember previous value
+            breakTimePicker.setValue(break_memory);
 
             breakTimePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     breakTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
+                    break_memory = oldValue + 1;
                     calculateTime();
                 }
             });
@@ -242,15 +246,17 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     public void calculateTime(){
         String et[] = exerciseTime.getText().toString().split(":");
         String rt[] = restTime.getText().toString().split(":");
+        int number_of_round = Integer.parseInt(round.getText().toString());
+        int number_of_set = Integer.parseInt(set.getText().toString());
 
-        int totalET = Integer.parseInt(et[0]) * 60 * Integer.parseInt(round.getText().toString()) + Integer.parseInt(et[1]) * Integer.parseInt(round.getText().toString());;
-        int totalRT = Integer.parseInt(rt[0]) * 60 * Integer.parseInt(round.getText().toString()) + Integer.parseInt(rt[1]) * Integer.parseInt(round.getText().toString());;
+        int totalET = Integer.parseInt(et[0]) * 60 * number_of_round + Integer.parseInt(et[1]) * number_of_round;
+        int totalRT = Integer.parseInt(rt[0]) * 60 * number_of_round + Integer.parseInt(rt[1]) * number_of_round;
 
-        if (Integer.parseInt(set.getText().toString()) != 1){
-            totalET = totalET * Integer.parseInt(set.getText().toString());
+        if (number_of_set != 1){
+            totalET = totalET * number_of_set;
             String bt[] = breakTime.getText().toString().split(":");
-            int totalBT = Integer.parseInt(bt[0]) * 60 * (Integer.parseInt(set.getText().toString())-1) + Integer.parseInt(bt[1]) * (Integer.parseInt(set.getText().toString())-1);
-            totalRT = totalRT * Integer.parseInt(set.getText().toString()) + totalBT;
+            int totalBT = Integer.parseInt(bt[0]) * 60 * (number_of_set-1) + Integer.parseInt(bt[1]) * (number_of_set-1);
+            totalRT = totalRT * number_of_set + totalBT;
 
         }
         // convert time to seconds
@@ -258,11 +264,9 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         totalExerciseTime.setText(totalET / 60 + ":" + String.format("%02d" , totalET % 60));
         totalRestTime.setText(totalRT / 60 + ":" + String.format("%02d" , totalRT % 60));
 
-
     }
 
     public void toggleBreakTime(){
-        Log.d("set", set.getText().toString());
         if(set.getText().toString().equals("1")){
             breakTime.setVisibility(View.INVISIBLE);
             breaks.setVisibility(View.INVISIBLE);
@@ -278,7 +282,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         ToolTip.Builder builder = new ToolTip.Builder(this,setText,constraintLayout,"Set is the number of cycles of rounds you complete",position);
         builder.setAlign(align);
         builder.withArrow(true);
-        builder.setBackgroundColor(Color.LTGRAY);
+        builder.setBackgroundColor(Color.GRAY);
         builder.setGravity(ToolTip.GRAVITY_CENTER);
         toolTipsManager.show(builder.build());
     }
