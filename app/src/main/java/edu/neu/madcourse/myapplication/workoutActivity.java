@@ -1,7 +1,11 @@
 package edu.neu.madcourse.myapplication;
 
 import android.app.Dialog;
+<<<<<<< HEAD
 import android.graphics.Color;
+=======
+import android.content.Intent;
+>>>>>>> 4a35adb89f85ee96c3e590e04ea32bd0d6509c0d
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -39,6 +43,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private Button restTime;
     private Button set;
     private Button breakTime;
+    private Button starttimer;
     static Dialog d ;
 
     /**
@@ -77,7 +82,15 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                 displayTooltip(ToolTip.POSITION_ABOVE, ToolTip.ALIGN_RIGHT);
             }
         });
+        starttimer = findViewById(R.id.starttimer);
 
+
+        starttimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openActivityStartWorkOut();
+            }
+        });
 
         exerciseTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +129,14 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
 
         calculateTime();
 }
+<<<<<<< HEAD
 
+=======
+    public void openActivityStartWorkOut(){
+        Intent intent = new Intent(this, StartWorkOut.class);
+        startActivity(intent);
+    }
+>>>>>>> 4a35adb89f85ee96c3e590e04ea32bd0d6509c0d
     public void show(String type)
     {
         final Dialog d = new Dialog(this);
