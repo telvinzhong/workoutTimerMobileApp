@@ -1,16 +1,26 @@
 package edu.neu.madcourse.myapplication;
 
 import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.TooltipCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
-public class workoutActivity extends AppCompatActivity {
+import com.google.android.material.tooltip.TooltipDrawable;
+import com.tomergoldst.tooltips.ToolTip;
+import com.tomergoldst.tooltips.ToolTipsManager;
+import com.tooltip.Tooltip;
+
+public class workoutActivity extends AppCompatActivity implements ToolTipsManager.TipListener {
+    private ConstraintLayout constraintLayout;
     private NumberPicker exerciseTimePicker;
     private NumberPicker restTimePicker;
     private NumberPicker roundPicker;
@@ -19,7 +29,9 @@ public class workoutActivity extends AppCompatActivity {
     private TextView totalExerciseTime;
     private TextView totalRestTime;
     private TextView breaks;
+    private TextView setText;
     private String totalTime;
+    private ToolTipsManager toolTipsManager;
 
     private Button ok;
     private Button exerciseTime;
@@ -55,6 +67,16 @@ public class workoutActivity extends AppCompatActivity {
         breaks = findViewById(R.id.breaks);
         totalExerciseTime = findViewById(R.id.totalexercisetime);
         totalRestTime = findViewById(R.id.totalresttime);
+        setText = findViewById(R.id.set);
+        toolTipsManager = new ToolTipsManager(this);
+        constraintLayout = findViewById(R.id.constraintlayout);
+
+        setText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayTooltip(ToolTip.POSITION_ABOVE, ToolTip.ALIGN_RIGHT);
+            }
+        });
 
 
         exerciseTime.setOnClickListener(new View.OnClickListener() {
@@ -93,8 +115,8 @@ public class workoutActivity extends AppCompatActivity {
         });
 
         calculateTime();
-//        toggleBreakTime();
 }
+
     public void show(String type)
     {
         final Dialog d = new Dialog(this);
@@ -183,10 +205,13 @@ public class workoutActivity extends AppCompatActivity {
             breakTimePicker.setMaxValue(Time.getTimeArrayList().size() -1);
             breakTimePicker.setMinValue(0);
             breakTimePicker.setDisplayedValues(Time.timeString());
+            breakTimePicker.setValue(11);
+
             breakTimePicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     breakTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
+                    calculateTime();
                 }
             });
         }
@@ -209,6 +234,10 @@ public class workoutActivity extends AppCompatActivity {
 
         if (Integer.parseInt(set.getText().toString()) != 1){
             totalET = totalET * Integer.parseInt(set.getText().toString());
+            String bt[] = breakTime.getText().toString().split(":");
+            int totalBT = Integer.parseInt(bt[0]) * 60 * (Integer.parseInt(set.getText().toString())-1) + Integer.parseInt(bt[1]) * (Integer.parseInt(set.getText().toString())-1);
+            totalRT = totalRT * Integer.parseInt(set.getText().toString()) + totalBT;
+
         }
         // convert time to seconds
         // divide to get minute
@@ -231,5 +260,18 @@ public class workoutActivity extends AppCompatActivity {
         }
     }
 
+    private void displayTooltip(int position, int align) {
+        toolTipsManager.findAndDismiss(setText);
+        ToolTip.Builder builder = new ToolTip.Builder(this,setText,constraintLayout,"Set is the number of cycles of rounds you complete",position);
+        builder.setAlign(align);
+        builder.withArrow(true);
+        builder.setBackgroundColor(Color.LTGRAY);
+        builder.setGravity(ToolTip.GRAVITY_CENTER);
+        toolTipsManager.show(builder.build());
+    }
 
+    @Override
+    public void onTipDismissed(View view, int anchorViewId, boolean byUser) {
+
+    }
 }
