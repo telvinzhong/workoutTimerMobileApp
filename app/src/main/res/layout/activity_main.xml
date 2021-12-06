@@ -10,15 +10,14 @@
         android:layout_width="288dp"
         android:layout_height="51dp"
         android:elegantTextHeight="true"
-        android:text="Hello World!"
+        android:text="Days in a row: -"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:text="Days in a row: 0" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/startworkout"
@@ -47,10 +46,11 @@
         app:layout_constraintVertical_bias="0.265" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/running"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
+        android:onClick="onClick"
         android:text="Start Running"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button4"

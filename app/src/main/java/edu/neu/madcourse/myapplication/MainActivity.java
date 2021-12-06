@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.startworkout:
                 startActivity(new Intent(this, workoutActivity.class));
                 break;
+            case R.id.running:
+                startActivity(new Intent(this, Running.class));
         }
     }
 }
