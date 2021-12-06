@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,8 +36,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
 public class Running extends AppCompatActivity {
+    private double lat = 0;
+    private double lon = 0;
     private TextView AddressText;
     private Button LocationButton;
+    private Button LocationButton2;
+    private Location initial = null;
     private LocationRequest locationRequest;
 
     @Override
@@ -46,12 +51,24 @@ public class Running extends AppCompatActivity {
 
         AddressText = findViewById(R.id.addressText);
         LocationButton = findViewById(R.id.locationButton);
+        LocationButton2 = findViewById(R.id.locationButton2);
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
         locationRequest.setInterval(5000);
         locationRequest.setFastestInterval(2000);
 
         LocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getCurrentLocation();
+                Context context = getApplicationContext();
+                Toast toast = Toast.makeText(context, "Your run has started! Press " +
+                        "'End Run' when you are done.", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
+        LocationButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getCurrentLocation();
@@ -100,10 +117,19 @@ public class Running extends AppCompatActivity {
                                     if (locationResult != null && locationResult.getLocations().size() >0){
 
                                         int index = locationResult.getLocations().size() - 1;
-                                        double latitude = locationResult.getLocations().get(index).getLatitude();
-                                        double longitude = locationResult.getLocations().get(index).getLongitude();
+//                                        double latitude = locationResult.getLocations().get(index).getLatitude();
+//                                        double longitude = locationResult.getLocations().get(index).getLongitude();
 
-                                        AddressText.setText("Latitude: "+ latitude + "\n" + "Longitude: "+ longitude);
+
+                                        if ((initial) == null) {
+                                            initial = locationResult.getLocations().get(index);
+                                        } else {
+//                                            double total = Math.pow((Math.pow((longitude - lon), 2) + Math.pow((longitude - lon), 2)), 0.5);
+//                                            AddressText.setText("Latitude: "+ latitude + "\n" + "Longitude: "+ longitude);
+                                            Location finished = locationResult.getLocations().get(index);
+                                            AddressText.setText("You ran " + finished.distanceTo(initial) + " meters today!");
+                                        }
+
                                     }
                                 }
                             }, Looper.getMainLooper());

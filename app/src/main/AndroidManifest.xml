@@ -18,9 +18,6 @@
             android:name=".Running"
             android:exported="true" />
         <activity
-            android:name=".Locator"
-            android:exported="true" />
-        <activity
             android:name=".summary"
             android:exported="true" />
         <activity
