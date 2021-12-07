@@ -19,6 +19,9 @@ public class StartWorkOut extends AppCompatActivity {
     private String totalRT;
     private int ET;
     private int RT;
+    private int BT;
+    private int set;
+    private int round;
     private Intent i;
 
     @Override
@@ -32,10 +35,18 @@ public class StartWorkOut extends AppCompatActivity {
         Intent data = getIntent();
         totalET = data.getStringExtra("totalET");
         totalRT = data.getStringExtra("totalRT");
-        ET = data.getIntExtra("ET", 1);
-        RT = data.getIntExtra("RT",1);
+        ET = data.getIntExtra("ET", 0);
+        RT = data.getIntExtra("RT",0);
+        BT = data.getIntExtra("BT", 0);
+        set = data.getIntExtra("set",1);
+        round = data.getIntExtra("round",1);
+//        if (round != 1){
+//            ET = ET / round;
+//        }
+//        if (set != 1){
+//            ET = ET / set;
+//        }
 
-        //String s = String.valueOf(ET);
         long lng = Long.valueOf(ET).longValue();
         timeLeftInMillisecounds = lng * 1000;
 
@@ -63,6 +74,9 @@ public class StartWorkOut extends AppCompatActivity {
         i.putExtra("totalRT", totalRT);
         i.putExtra("ET", ET);
         i.putExtra("RT", RT);
+        i.putExtra("BT", BT);
+        i.putExtra("set", set);
+        i.putExtra("round",round);
     }
     public void startStop(){
         if (timeRunning){

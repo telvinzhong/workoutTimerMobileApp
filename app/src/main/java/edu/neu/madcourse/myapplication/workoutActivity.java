@@ -37,6 +37,8 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private int totalET;
     private int totalRT;
     private int totalBT;
+    int number_of_set;
+    int number_of_round;
     private Button ok;
     private Button exerciseTime;
     private Button round;
@@ -132,8 +134,11 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         i = new Intent(this, StartWorkOut.class);
         i.putExtra("totalET", totalExerciseTime.getText().toString());
         i.putExtra("totalRT", totalRestTime.getText().toString());
-        i.putExtra("ET", totalET);
-        i.putExtra("RT", totalRT);
+        i.putExtra("ET", totalET / number_of_set / number_of_round);
+        i.putExtra("RT", (totalRT - totalBT) / number_of_set / number_of_round);
+        i.putExtra("BT",totalBT);
+        i.putExtra("set",number_of_set);
+        i.putExtra("round",number_of_round);
     }
 
     public void show(String type)
@@ -254,8 +259,8 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     public void calculateTime(){
         String et[] = exerciseTime.getText().toString().split(":");
         String rt[] = restTime.getText().toString().split(":");
-        int number_of_round = Integer.parseInt(round.getText().toString());
-        int number_of_set = Integer.parseInt(set.getText().toString());
+        number_of_round = Integer.parseInt(round.getText().toString());
+        number_of_set = Integer.parseInt(set.getText().toString());
 
         totalET = Integer.parseInt(et[0]) * 60 * number_of_round + Integer.parseInt(et[1]) * number_of_round;
         totalRT = Integer.parseInt(rt[0]) * 60 * number_of_round + Integer.parseInt(rt[1]) * number_of_round;

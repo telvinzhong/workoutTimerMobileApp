@@ -22,7 +22,7 @@ public class summary extends AppCompatActivity {
         Intent data = getIntent();
         totalET = data.getStringExtra("totalET");
         totalRT = data.getStringExtra("totalRT");
-        totalresttimesummary.setText(totalET);
-        totalexercisetimesummary.setText(totalRT);
+        totalresttimesummary.setText(totalRT);
+        totalexercisetimesummary.setText(totalET);
     }
 }

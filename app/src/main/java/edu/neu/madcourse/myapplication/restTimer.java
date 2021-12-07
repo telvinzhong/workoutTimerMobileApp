@@ -17,11 +17,16 @@ public class restTimer extends AppCompatActivity {
     private long timeLeftInMillisecounds; //120000=2mins
     private boolean timeRunning;
     private Button summaryButton;
+    private Button next_round_button;
     private String totalET;
     private String totalRT;
     private int ET;
     private int RT;
     private Intent i;
+    private Intent j;
+    private int set;
+    private int round;
+    private int breakTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,12 +35,22 @@ public class restTimer extends AppCompatActivity {
         countdownText = findViewById(R.id.rest_countdown_text);
         countdownButton = findViewById(R.id.rest_countdown_button);
         summaryButton = findViewById(R.id.summary_button);
-
+        next_round_button = findViewById(R.id.next_round_button);
         Intent data = getIntent();
         totalET = data.getStringExtra("totalET");
         totalRT = data.getStringExtra("totalRT");
         ET = data.getIntExtra("ET", 1);
         RT = data.getIntExtra("RT",1);
+        set = data.getIntExtra("set",1);
+        round = data.getIntExtra("round",1);
+        breakTime = data.getIntExtra("BT",0);
+//        if (set != 1){
+//            RT = (RT - breakTime) / set;
+//        }
+//        if (round != 1){
+//            RT = RT / round;
+//        }
+
 
         long lng = Long.valueOf(RT).longValue();
         timeLeftInMillisecounds = lng * 1000;
@@ -56,6 +71,25 @@ public class restTimer extends AppCompatActivity {
             }
         });
         updateTimer();
+        next_round_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openNewRoundTimer();
+                startActivity(j);
+                stopTimer();
+            }
+        });
+        updateTimer();
+    }
+    public void openNewRoundTimer(){
+        j = new Intent(this, StartWorkOut.class);
+        j.putExtra("totalET", totalET);
+        j.putExtra("totalRT", totalRT);
+        j.putExtra("ET", ET);
+        j.putExtra("RT", RT);
+        j.putExtra("BT", breakTime);
+        j.putExtra("set", set);
+        j.putExtra("round",round);
     }
     public void openActivitySummary(){
         i = new Intent(this, summary.class);

@@ -23,10 +23,18 @@
         android:text="start" />
 
     <Button
-        android:id="@+id/summary_button"
+        android:id="@+id/next_round_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/rest_countdown_button"
+        android:layout_centerHorizontal="true"
+        android:text="Next Round" />
+
+    <Button
+        android:id="@+id/summary_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/next_round_button"
         android:layout_centerHorizontal="true"
         android:text="Done" />
 
