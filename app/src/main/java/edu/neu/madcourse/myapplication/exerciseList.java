@@ -22,7 +22,6 @@ public class exerciseList extends AppCompatActivity {
         fitonedesc = findViewById(R.id.fitonedesc);
         fittwodesc = findViewById(R.id.fittwodesc);
         btnStart = findViewById(R.id.btnStart);
-
         Intent data = getIntent();
         totalET = data.getStringExtra("totalET");
         totalRT = data.getStringExtra("totalRT");
@@ -36,15 +35,8 @@ public class exerciseList extends AppCompatActivity {
             }
         });
     }
-
     public void openStartTimer(){
         Intent intent = new Intent(this, StartWorkOut.class);
         startActivity(intent);
-    }
-
-    public void openNewIntent(){
-        i = new Intent(this, summary.class);
-        i.putExtra("totalET", totalET);
-        i.putExtra("totalRT", totalRT);
     }
 }

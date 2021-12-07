@@ -32,17 +32,17 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private TextView setText;
     private String totalTime;
     private ToolTipsManager toolTipsManager;
-<<<<<<< HEAD
+
     private Intent i;
     private Intent intent;
     private int ET;
     private int RT;
     private int BT;
-=======
+
     private int totalET;
     private int totalRT;
     private int totalBT;
->>>>>>> 66c0d10144dae2700572e2144d2e7b7782717475
+
 
     private Button ok;
     private Button exerciseTime;
