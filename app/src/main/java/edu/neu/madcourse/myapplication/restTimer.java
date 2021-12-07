@@ -1,6 +1,8 @@
 package edu.neu.madcourse.myapplication;
+
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.Bundle;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -8,22 +10,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
 
-public class StartWorkOut extends AppCompatActivity {
+public class restTimer extends AppCompatActivity {
     private TextView countdownText;
     private Button countdownButton;
     private CountDownTimer countDownTimer;
-    private long timeLeftInMillisecounds = 600000; //600000=10mins
+    private long timeLeftInMillisecounds = 120000; //120000=2mins
     private boolean timeRunning;
-    private Button restButton;
+    private Button summaryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start_work_out);
-
-        countdownText = findViewById(R.id.countdown_text);
-        countdownButton = findViewById(R.id.countdown_button);
-        restButton = findViewById(R.id.rest_button);
+        setContentView(R.layout.activity_rest_timer);
+        countdownText = findViewById(R.id.rest_countdown_text);
+        countdownButton = findViewById(R.id.rest_countdown_button);
+        summaryButton = findViewById(R.id.summary_button);
         countdownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,18 +32,17 @@ public class StartWorkOut extends AppCompatActivity {
             }
         });
         updateTimer();
-
-        restButton.setOnClickListener(new View.OnClickListener() {
+        summaryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stopTimer();
                 openActivitySummary();
+                stopTimer();
             }
         });
         updateTimer();
     }
     public void openActivitySummary(){
-        Intent intent = new Intent(this, restTimer.class);
+        Intent intent = new Intent(this, summary.class);
         startActivity(intent);
     }
     public void startStop(){

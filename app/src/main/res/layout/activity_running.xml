@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="#618859"
+    android:orientation="vertical"
+    tools:context=".Running">
+
+    <TextView
+        android:id="@+id/addressText"
+        android:layout_width="164dp"
+        android:layout_height="wrap_content"
+        android:text="Enjoy your run!"
+        android:textColor="@android:color/black"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/locationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Start Run"
+        android:textAllCaps="false"
+        android:textSize="19sp" />
+
+    <Button
+        android:id="@+id/locationButton2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="End Run"
+        android:textAllCaps="false"
+        android:textSize="19sp" />
+
+</LinearLayout>
