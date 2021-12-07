@@ -35,9 +35,11 @@ public class StartWorkOut extends AppCompatActivity {
         restButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                stopTimer();
                 openActivitySummary();
             }
         });
+        updateTimer();
     }
     public void openActivitySummary(){
         Intent intent = new Intent(this, restTimer.class);

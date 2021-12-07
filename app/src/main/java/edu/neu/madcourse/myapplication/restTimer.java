@@ -36,8 +36,10 @@ public class restTimer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openActivitySummary();
+                stopTimer();
             }
         });
+        updateTimer();
     }
     public void openActivitySummary(){
         Intent intent = new Intent(this, summary.class);
