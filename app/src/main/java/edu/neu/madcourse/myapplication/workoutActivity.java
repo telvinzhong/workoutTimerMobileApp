@@ -83,7 +83,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         starttimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openActivityStartWorkOut();
+                openExerciseList();
             }
         });
 
@@ -127,8 +127,8 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
 
 
 
-    public void openActivityStartWorkOut(){
-        Intent intent = new Intent(this, StartWorkOut.class);
+    public void openExerciseList(){
+        Intent intent = new Intent(this, exerciseList.class);
         startActivity(intent);
     }
     public void show(String type)
