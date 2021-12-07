@@ -32,6 +32,9 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private TextView setText;
     private String totalTime;
     private ToolTipsManager toolTipsManager;
+    private int totalET;
+    private int totalRT;
+    private int totalBT;
 
     private Button ok;
     private Button exerciseTime;
@@ -249,13 +252,13 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         int number_of_round = Integer.parseInt(round.getText().toString());
         int number_of_set = Integer.parseInt(set.getText().toString());
 
-        int totalET = Integer.parseInt(et[0]) * 60 * number_of_round + Integer.parseInt(et[1]) * number_of_round;
-        int totalRT = Integer.parseInt(rt[0]) * 60 * number_of_round + Integer.parseInt(rt[1]) * number_of_round;
+        totalET = Integer.parseInt(et[0]) * 60 * number_of_round + Integer.parseInt(et[1]) * number_of_round;
+        totalRT = Integer.parseInt(rt[0]) * 60 * number_of_round + Integer.parseInt(rt[1]) * number_of_round;
 
         if (number_of_set != 1){
             totalET = totalET * number_of_set;
             String bt[] = breakTime.getText().toString().split(":");
-            int totalBT = Integer.parseInt(bt[0]) * 60 * (number_of_set-1) + Integer.parseInt(bt[1]) * (number_of_set-1);
+            totalBT = Integer.parseInt(bt[0]) * 60 * (number_of_set-1) + Integer.parseInt(bt[1]) * (number_of_set-1);
             totalRT = totalRT * number_of_set + totalBT;
 
         }
