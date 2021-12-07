@@ -12,18 +12,23 @@ public class StartWorkOut extends AppCompatActivity {
     private TextView countdownText;
     private Button countdownButton;
     private CountDownTimer countDownTimer;
-    private long timeLeftInMillisecounds = 600000; //600000=10mins
+    private long timeLeftInMillisecounds; //600000=10mins
     private boolean timeRunning;
     private Button restButton;
-
+    private int ET;
+    private int RT;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_work_out);
-
         countdownText = findViewById(R.id.countdown_text);
         countdownButton = findViewById(R.id.countdown_button);
         restButton = findViewById(R.id.rest_button);
+        Intent data = getIntent();
+        ET = data.getIntExtra("ET", 1);
+        RT = data.getIntExtra("RT", 1);
+        timeLeftInMillisecounds = ET;
+
         countdownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -35,13 +40,13 @@ public class StartWorkOut extends AppCompatActivity {
         restButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                openRestTimer();
                 stopTimer();
-                openActivitySummary();
             }
         });
         updateTimer();
     }
-    public void openActivitySummary(){
+    public void openRestTimer(){
         Intent intent = new Intent(this, restTimer.class);
         startActivity(intent);
     }

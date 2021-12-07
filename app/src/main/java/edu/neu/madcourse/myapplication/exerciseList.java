@@ -9,23 +9,42 @@ import android.widget.TextView;
 import android.content.Intent;
 
 public class exerciseList extends AppCompatActivity {
-    TextView title, fitonetitle, fitonedesc, fittwotitle, fittwodesc;
+    TextView fitonedesc, fittwodesc;
     Button btnStart;
+    private Intent i;
+    private String totalET;
+    private String totalRT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercise_list);
+        fitonedesc = findViewById(R.id.fitonedesc);
+        fittwodesc = findViewById(R.id.fittwodesc);
         btnStart = findViewById(R.id.btnStart);
+
+        Intent data = getIntent();
+        totalET = data.getStringExtra("totalET");
+        totalRT = data.getStringExtra("totalRT");
+        fitonedesc.setText(totalET);
+        fittwodesc.setText(totalRT);
+
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openActivitySummary();
+                openStartTimer();
             }
         });
     }
-    public void openActivitySummary(){
+
+    public void openStartTimer(){
         Intent intent = new Intent(this, StartWorkOut.class);
         startActivity(intent);
+    }
+
+    public void openNewIntent(){
+        i = new Intent(this, summary.class);
+        i.putExtra("totalET", totalET);
+        i.putExtra("totalRT", totalRT);
     }
 }

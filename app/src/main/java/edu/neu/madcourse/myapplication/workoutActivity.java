@@ -32,6 +32,11 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private TextView setText;
     private String totalTime;
     private ToolTipsManager toolTipsManager;
+    private Intent i;
+    private Intent intent;
+    private int ET;
+    private int RT;
+    private int BT;
 
     private Button ok;
     private Button exerciseTime;
@@ -80,13 +85,6 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
             }
         });
 
-        starttimer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openExerciseList();
-            }
-        });
-
         exerciseTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,16 +119,33 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                 show("breakTime");
             }
         });
-
         calculateTime();
+
+        starttimer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openNewIntent();
+                startActivity(i);
+            }
+        });
 }
-
-
-
-    public void openExerciseList(){
-        Intent intent = new Intent(this, exerciseList.class);
-        startActivity(intent);
+    public void openNewIntent(){
+        i = new Intent(this, exerciseList.class);
+        i.putExtra("totalET", totalExerciseTime.getText().toString());
+        i.putExtra("totalRT", totalRestTime.getText().toString());
     }
+
+    public void values(){
+        intent = new Intent(this, StartWorkOut.class);
+        intent.putExtra("ET", ET);
+        intent.putExtra("RT", RT);
+    }
+
+//    public void openExerciseList(){
+//        Intent intent = new Intent(this, exerciseList.class);
+//        startActivity(intent);
+//    }
+
     public void show(String type)
     {
         final Dialog d = new Dialog(this);
@@ -152,10 +167,9 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                     exerciseTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
                     exercise_memory = oldValue +1;
                     calculateTime();
+                    openNewIntent();
                 }
             });
-
-
         }
         else if (type.equals("restTime")){
             d.setContentView(R.layout.rest_dialog);
@@ -172,6 +186,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                     restTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
                     rest_memory = oldValue + 1;
                     calculateTime();
+                    openNewIntent();
                 }
             });
 
@@ -190,6 +205,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     round.setText(String.valueOf(newValue));
                     calculateTime();
+                    openNewIntent();
                 }
             });
 
@@ -209,6 +225,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                     set.setText(String.valueOf(newValue));
                     toggleBreakTime();
                     calculateTime();
+                    openNewIntent();
                 }
             });
         }
@@ -230,6 +247,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                     breakTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
                     break_memory = oldValue + 1;
                     calculateTime();
+                    openNewIntent();
                 }
             });
         }
@@ -263,7 +281,8 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         // divide to get minute
         totalExerciseTime.setText(totalET / 60 + ":" + String.format("%02d" , totalET % 60));
         totalRestTime.setText(totalRT / 60 + ":" + String.format("%02d" , totalRT % 60));
-
+        ET = totalET;
+        RT = totalRT;
     }
 
     public void toggleBreakTime(){
