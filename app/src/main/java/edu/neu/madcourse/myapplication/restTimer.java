@@ -51,8 +51,8 @@ public class restTimer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openActivitySummary();
-                stopTimer();
                 startActivity(i);
+                stopTimer();
             }
         });
         updateTimer();
