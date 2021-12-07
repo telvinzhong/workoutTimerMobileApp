@@ -15,8 +15,12 @@ public class StartWorkOut extends AppCompatActivity {
     private long timeLeftInMillisecounds; //600000=10mins
     private boolean timeRunning;
     private Button restButton;
+    private String totalET;
+    private String totalRT;
     private int ET;
     private int RT;
+    private Intent i;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,10 +28,16 @@ public class StartWorkOut extends AppCompatActivity {
         countdownText = findViewById(R.id.countdown_text);
         countdownButton = findViewById(R.id.countdown_button);
         restButton = findViewById(R.id.rest_button);
+
         Intent data = getIntent();
+        totalET = data.getStringExtra("totalET");
+        totalRT = data.getStringExtra("totalRT");
         ET = data.getIntExtra("ET", 1);
-        RT = data.getIntExtra("RT", 1);
-        timeLeftInMillisecounds = ET;
+        RT = data.getIntExtra("RT",1);
+
+        //String s = String.valueOf(ET);
+        long lng = Long.valueOf(ET).longValue();
+        timeLeftInMillisecounds = lng * 1000;
 
         countdownButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,14 +51,18 @@ public class StartWorkOut extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 openRestTimer();
+                startActivity(i);
                 stopTimer();
             }
         });
         updateTimer();
     }
     public void openRestTimer(){
-        Intent intent = new Intent(this, restTimer.class);
-        startActivity(intent);
+        i = new Intent(this, restTimer.class);
+        i.putExtra("totalET", totalET);
+        i.putExtra("totalRT", totalRT);
+        i.putExtra("ET", ET);
+        i.putExtra("RT", RT);
     }
     public void startStop(){
         if (timeRunning){

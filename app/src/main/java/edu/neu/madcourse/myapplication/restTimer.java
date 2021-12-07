@@ -14,9 +14,14 @@ public class restTimer extends AppCompatActivity {
     private TextView countdownText;
     private Button countdownButton;
     private CountDownTimer countDownTimer;
-    private long timeLeftInMillisecounds = 120000; //120000=2mins
+    private long timeLeftInMillisecounds; //120000=2mins
     private boolean timeRunning;
     private Button summaryButton;
+    private String totalET;
+    private String totalRT;
+    private int ET;
+    private int RT;
+    private Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,16 @@ public class restTimer extends AppCompatActivity {
         countdownText = findViewById(R.id.rest_countdown_text);
         countdownButton = findViewById(R.id.rest_countdown_button);
         summaryButton = findViewById(R.id.summary_button);
+
+        Intent data = getIntent();
+        totalET = data.getStringExtra("totalET");
+        totalRT = data.getStringExtra("totalRT");
+        ET = data.getIntExtra("ET", 1);
+        RT = data.getIntExtra("RT",1);
+
+        long lng = Long.valueOf(RT).longValue();
+        timeLeftInMillisecounds = lng * 1000;
+
         countdownButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -37,13 +52,15 @@ public class restTimer extends AppCompatActivity {
             public void onClick(View view) {
                 openActivitySummary();
                 stopTimer();
+                startActivity(i);
             }
         });
         updateTimer();
     }
     public void openActivitySummary(){
-        Intent intent = new Intent(this, summary.class);
-        startActivity(intent);
+        i = new Intent(this, summary.class);
+        i.putExtra("totalET", totalET);
+        i.putExtra("totalRT", totalRT);
     }
     public void startStop(){
         if (timeRunning){

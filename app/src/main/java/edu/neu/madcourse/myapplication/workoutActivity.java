@@ -32,18 +32,11 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private TextView setText;
     private String totalTime;
     private ToolTipsManager toolTipsManager;
-
     private Intent i;
-    private Intent intent;
-    private int ET;
-    private int RT;
-    private int BT;
-
+    private Intent j;
     private int totalET;
     private int totalRT;
     private int totalBT;
-
-
     private Button ok;
     private Button exerciseTime;
     private Button round;
@@ -136,21 +129,12 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         });
 }
     public void openNewIntent(){
-        i = new Intent(this, exerciseList.class);
+        i = new Intent(this, StartWorkOut.class);
         i.putExtra("totalET", totalExerciseTime.getText().toString());
         i.putExtra("totalRT", totalRestTime.getText().toString());
+        i.putExtra("ET", totalET);
+        i.putExtra("RT", totalRT);
     }
-
-    public void values(){
-        intent = new Intent(this, StartWorkOut.class);
-        intent.putExtra("ET", ET);
-        intent.putExtra("RT", RT);
-    }
-
-//    public void openExerciseList(){
-//        Intent intent = new Intent(this, exerciseList.class);
-//        startActivity(intent);
-//    }
 
     public void show(String type)
     {
@@ -287,8 +271,6 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         // divide to get minute
         totalExerciseTime.setText(totalET / 60 + ":" + String.format("%02d" , totalET % 60));
         totalRestTime.setText(totalRT / 60 + ":" + String.format("%02d" , totalRT % 60));
-        ET = totalET;
-        RT = totalRT;
     }
 
     public void toggleBreakTime(){
