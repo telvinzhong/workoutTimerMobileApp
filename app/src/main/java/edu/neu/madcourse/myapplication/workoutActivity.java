@@ -37,6 +37,9 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private int totalET;
     private int totalRT;
     private int totalBT;
+    private int ET;
+    private int RT;
+    private int BT;
     int number_of_set;
     int number_of_round;
     private Button ok;
@@ -134,9 +137,9 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         i = new Intent(this, StartWorkOut.class);
         i.putExtra("totalET", totalExerciseTime.getText().toString());
         i.putExtra("totalRT", totalRestTime.getText().toString());
-        i.putExtra("ET", totalET / number_of_set / number_of_round);
-        i.putExtra("RT", (totalRT - totalBT) / number_of_set / number_of_round);
-        i.putExtra("BT",totalBT);
+        i.putExtra("ET", ET);
+        i.putExtra("RT", RT);
+        i.putExtra("BT",BT);
         i.putExtra("set",number_of_set);
         i.putExtra("round",number_of_round);
     }
@@ -259,18 +262,25 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     public void calculateTime(){
         String et[] = exerciseTime.getText().toString().split(":");
         String rt[] = restTime.getText().toString().split(":");
+        String bt[] = breakTime.getText().toString().split(":");
+
+
         number_of_round = Integer.parseInt(round.getText().toString());
         number_of_set = Integer.parseInt(set.getText().toString());
 
-        totalET = Integer.parseInt(et[0]) * 60 * number_of_round + Integer.parseInt(et[1]) * number_of_round;
-        totalRT = Integer.parseInt(rt[0]) * 60 * number_of_round + Integer.parseInt(rt[1]) * number_of_round;
+        ET = (Integer.parseInt(et[0]) * 60 + Integer.parseInt(et[1]));
+        RT = (Integer.parseInt(rt[0]) * 60 + Integer.parseInt(rt[1]));
+//
+//        totalET = Integer.parseInt(et[0]) * 60 * number_of_round + Integer.parseInt(et[1]) * number_of_round;
+//        totalRT = Integer.parseInt(rt[0]) * 60 * (number_of_round -1) + Integer.parseInt(rt[1]) * (number_of_round-1);
+        totalET = (Integer.parseInt(et[0]) * 60 + Integer.parseInt(et[1])) * number_of_round;
+        totalRT = (Integer.parseInt(rt[0]) * 60 + Integer.parseInt(rt[1])) * (number_of_round-1);
 
         if (number_of_set != 1){
             totalET = totalET * number_of_set;
-            String bt[] = breakTime.getText().toString().split(":");
-            totalBT = Integer.parseInt(bt[0]) * 60 * (number_of_set-1) + Integer.parseInt(bt[1]) * (number_of_set-1);
+            BT = (Integer.parseInt(bt[0]) * 60 + Integer.parseInt(bt[1]));
+            totalBT = (Integer.parseInt(bt[0]) * 60 + Integer.parseInt(bt[1])) * (number_of_set-1);
             totalRT = totalRT * number_of_set + totalBT;
-
         }
         // convert time to seconds
         // divide to get minute
