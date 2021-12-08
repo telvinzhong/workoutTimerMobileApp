@@ -23,12 +23,13 @@
         android:text="start" />
 
     <Button
-        android:id="@+id/rest_button"
+        android:id="@+id/home_button"
+        android:visibility="invisible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/countdown_button"
         android:layout_centerHorizontal="true"
-        android:text="Take Rest" />
+        android:text="Home" />
 
     <TextView
         android:id="@+id/exercise_status"
