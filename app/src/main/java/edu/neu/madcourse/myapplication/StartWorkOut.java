@@ -134,7 +134,7 @@ public class StartWorkOut extends AppCompatActivity {
                 if (round > 1 ) {
                     round = round - 1;
 
-                    timeLeftInMillisecounds = lngrest * 1000 + 1 ;
+                    timeLeftInMillisecounds = lngrest * 1000 + 1000 ;
                     startTimer();
                     exerciseStatus.setText("Rest");
                 }
