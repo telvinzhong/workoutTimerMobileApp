@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".StartWorkOut">
+
     <TextView
         android:id="@+id/countdown_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:textSize="50sp"
-        tools:text="10:00"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        tools:text="10:00" />
 
     <Button
         android:id="@+id/countdown_button"
@@ -29,5 +29,14 @@
         android:layout_below="@+id/countdown_button"
         android:layout_centerHorizontal="true"
         android:text="Take Rest" />
+
+    <TextView
+        android:id="@+id/exercise_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="243dp"
+        android:text="Exercise" />
 
 </RelativeLayout>

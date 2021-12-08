@@ -3,20 +3,25 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.content.Intent;
+import android.widget.Toast;
 
 public class StartWorkOut extends AppCompatActivity {
     private TextView countdownText;
     private Button countdownButton;
     private CountDownTimer countDownTimer;
+    private TextView exerciseStatus ;
     private long timeLeftInMillisecounds; //600000=10mins
     private boolean timeRunning;
     private Button restButton;
     private String totalET;
     private String totalRT;
+    private long lngrest;
+    private long lng;
     private int ET;
     private int RT;
     private int BT;
@@ -31,6 +36,7 @@ public class StartWorkOut extends AppCompatActivity {
         countdownText = findViewById(R.id.countdown_text);
         countdownButton = findViewById(R.id.countdown_button);
         restButton = findViewById(R.id.rest_button);
+        exerciseStatus = findViewById(R.id.exercise_status);
 
         Intent data = getIntent();
         totalET = data.getStringExtra("totalET");
@@ -47,8 +53,12 @@ public class StartWorkOut extends AppCompatActivity {
 //            ET = ET / set;
 //        }
 
-        long lng = Long.valueOf(ET).longValue();
-        timeLeftInMillisecounds = lng * 1000;
+        lng = Long.valueOf(ET).longValue();
+        lngrest = Long.valueOf(RT).longValue();
+        timeLeftInMillisecounds = lng * 1000 + 1000;
+
+
+        startStop();
 
         countdownButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,7 +66,6 @@ public class StartWorkOut extends AppCompatActivity {
                 startStop();
             }
         });
-        updateTimer();
 
         restButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,7 +75,6 @@ public class StartWorkOut extends AppCompatActivity {
                 stopTimer();
             }
         });
-        updateTimer();
     }
     public void openRestTimer(){
         i = new Intent(this, restTimer.class);
@@ -118,6 +126,32 @@ public class StartWorkOut extends AppCompatActivity {
             timeLeftText += "0";
         }
         timeLeftText += seconds;
+
         countdownText.setText(timeLeftText);
+
+        if(timeLeftInMillisecounds < 1000) {
+            if (exerciseStatus.getText().equals("Exercise")) {
+                if (round > 1 ) {
+                    round = round - 1;
+
+                    timeLeftInMillisecounds = lngrest * 1000 + 1 ;
+                    startTimer();
+                    exerciseStatus.setText("Rest");
+                }
+                else if (round == 1 ) {
+                    Toast.makeText(this, "Exercise ", Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+            else if (exerciseStatus.getText().equals("Rest")) {
+                timeLeftInMillisecounds = lng * 1000 + 1000 ;
+                startTimer();
+                exerciseStatus.setText("Exercise");
+            }
+
+
+        }
+
     }
 }
