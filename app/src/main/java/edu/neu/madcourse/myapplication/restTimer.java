@@ -1,14 +1,13 @@
 package edu.neu.madcourse.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.os.Bundle;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.content.Intent;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class restTimer extends AppCompatActivity {
     private TextView countdownText;
@@ -40,10 +39,10 @@ public class restTimer extends AppCompatActivity {
         totalET = data.getStringExtra("totalET");
         totalRT = data.getStringExtra("totalRT");
         ET = data.getIntExtra("ET", 1);
-        RT = data.getIntExtra("RT",1);
-        set = data.getIntExtra("set",1);
-        round = data.getIntExtra("round",1);
-        breakTime = data.getIntExtra("BT",0);
+        RT = data.getIntExtra("RT", 1);
+        set = data.getIntExtra("set", 1);
+        round = data.getIntExtra("round", 1);
+        breakTime = data.getIntExtra("BT", 0);
 //        if (set != 1){
 //            RT = (RT - breakTime) / set;
 //        }
@@ -81,7 +80,8 @@ public class restTimer extends AppCompatActivity {
         });
         updateTimer();
     }
-    public void openNewRoundTimer(){
+
+    public void openNewRoundTimer() {
         j = new Intent(this, StartWorkOut.class);
         j.putExtra("totalET", totalET);
         j.putExtra("totalRT", totalRT);
@@ -89,21 +89,24 @@ public class restTimer extends AppCompatActivity {
         j.putExtra("RT", RT);
         j.putExtra("BT", breakTime);
         j.putExtra("set", set);
-        j.putExtra("round",round);
+        j.putExtra("round", round);
     }
-    public void openActivitySummary(){
+
+    public void openActivitySummary() {
         i = new Intent(this, summary.class);
         i.putExtra("totalET", totalET);
         i.putExtra("totalRT", totalRT);
     }
-    public void startStop(){
-        if (timeRunning){
+
+    public void startStop() {
+        if (timeRunning) {
             stopTimer();
         } else {
             startTimer();
         }
     }
-    public void startTimer(){
+
+    public void startTimer() {
         countDownTimer = new CountDownTimer(timeLeftInMillisecounds, 1000) {
             @Override
             // l contains remaining time for countDownTimer
@@ -122,17 +125,19 @@ public class restTimer extends AppCompatActivity {
         timeRunning = true;
 
     }
-    public void stopTimer(){
+
+    public void stopTimer() {
         countDownTimer.cancel();
         countdownButton.setText("START");
         timeRunning = false;
     }
-    public void updateTimer(){
-        int minutes = (int)timeLeftInMillisecounds / 60000; // divided 60 seconds
-        int seconds = (int)timeLeftInMillisecounds % 60000 / 1000;
+
+    public void updateTimer() {
+        int minutes = (int) timeLeftInMillisecounds / 60000; // divided 60 seconds
+        int seconds = (int) timeLeftInMillisecounds % 60000 / 1000;
         String timeLeftText = "" + minutes;
         timeLeftText += ":";
-        if (seconds < 10){
+        if (seconds < 10) {
             timeLeftText += "0";
         }
         timeLeftText += seconds;

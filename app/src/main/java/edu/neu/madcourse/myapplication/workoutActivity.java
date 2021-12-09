@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
@@ -151,7 +150,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         if (type.equals("exerciseTime")){
             d.setContentView(R.layout.exercise_dialog);
             exerciseTimePicker = d.findViewById(R.id.exercisetimepicker);
-            ok = d.findViewById(R.id.ok);
+            ok = d.findViewById(R.id.setting);
             Time.initTime();
             exerciseTimePicker.setMaxValue(Time.getTimeArrayList().size() -1);
             exerciseTimePicker.setMinValue(0);
@@ -172,7 +171,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         else if (type.equals("restTime")){
             d.setContentView(R.layout.rest_dialog);
             restTimePicker = d.findViewById(R.id.resttimepicker);
-            ok = d.findViewById(R.id.ok);
+            ok = d.findViewById(R.id.setting);
             Time.initTime();
             restTimePicker.setMaxValue(Time.getTimeArrayList().size() -1);
             restTimePicker.setMinValue(0);
@@ -193,7 +192,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         else if (type.equals("round")){
             d.setContentView(R.layout.round_dialog);
             roundPicker = d.findViewById(R.id.roundpicker);
-            ok = d.findViewById(R.id.ok);
+            ok = d.findViewById(R.id.setting);
             roundPicker.setMinValue(1);
             roundPicker.setMaxValue(10);
             // Remember previous value
@@ -212,7 +211,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         else if (type.equals("set")){
             d.setContentView(R.layout.set_dialog);
             setPicker = d.findViewById(R.id.setpicker);
-            ok = d.findViewById(R.id.ok);
+            ok = d.findViewById(R.id.setting);
             setPicker.setMinValue(1);
             setPicker.setMaxValue(10);
             // Remember previous value
@@ -231,7 +230,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         else if (type.equals("breakTime")){
             d.setContentView(R.layout.break_dialog);
             breakTimePicker = d.findViewById(R.id.breaktimepicker);
-            ok = d.findViewById(R.id.ok);
+            ok = d.findViewById(R.id.setting);
             Time.initTime();
             breakTimePicker.setMaxValue(Time.getTimeArrayList().size() -1);
             breakTimePicker.setMinValue(0);

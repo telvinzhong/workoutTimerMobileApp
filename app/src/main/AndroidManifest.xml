@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".SettingActivity"
+            android:exported="true" />
+        <activity
             android:name=".restTimer"
             android:exported="true" />
         <activity

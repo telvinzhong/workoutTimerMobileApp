@@ -20,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.running:
                 startActivity(new Intent(this, Running.class));
+                break;
+            case R.id.setting:
+                startActivity(new Intent(this, SettingActivity.class));
+                break;
         }
     }
 }
