@@ -1,6 +1,8 @@
 package edu.neu.madcourse.myapplication;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,14 +10,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.tomergoldst.tooltips.ToolTip;
 import com.tomergoldst.tooltips.ToolTipsManager;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 public class workoutActivity extends AppCompatActivity implements ToolTipsManager.TipListener {
+    //ArrayList<ExampleItem> mExampleList;
+    SharedPreferences sp;
+
     private ConstraintLayout constraintLayout;
     private int exercise_memory = 17;
     private int rest_memory = 8;
@@ -81,6 +92,8 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         constraintLayout = findViewById(R.id.constraintlayout);
         starttimer = findViewById(R.id.starttimer);
 
+        sp = getSharedPreferences("exercise", Context.MODE_PRIVATE);
+
         setText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,11 +140,37 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         starttimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("exercise", totalExerciseTime.getText().toString());
+                editor.putString("rest", totalRestTime.getText().toString());
+                editor.commit();
+                Toast.makeText(workoutActivity.this,"added data",Toast.LENGTH_SHORT).show();
                 openNewIntent();
                 startActivity(i);
             }
         });
 }
+//    private void saveData(){
+//        SharedPreferences sharedPreferences = getSharedPreferences("exercise",MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        Gson gson = new Gson();
+//        String json = gson.toJson(mExampleList);
+//        editor.putString("exercise", json);
+//        editor.apply();
+//        Toast.makeText(workoutActivity.this,"Info Saved", Toast.LENGTH_SHORT).show();
+//    }
+
+//    private void loadData(){
+//        SharedPreferences sharedPreferences = getSharedPreferences("exercise",MODE_PRIVATE);
+//        Gson gson = new Gson();
+//        String json = sharedPreferences.getString("exercise", null);
+//        Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
+//        mExampleList = gson.fromJson(json, type);
+//        if (mExampleList == null){
+//            mExampleList = new ArrayList<>();
+//        }
+//    }
+
     public void openNewIntent(){
         i = new Intent(this, StartWorkOut.class);
         i.putExtra("totalET", totalExerciseTime.getText().toString());
