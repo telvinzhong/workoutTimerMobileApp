@@ -144,7 +144,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                 editor.putString("exercise", totalExerciseTime.getText().toString());
                 editor.putString("rest", totalRestTime.getText().toString());
                 editor.commit();
-                Toast.makeText(workoutActivity.this,"added data",Toast.LENGTH_SHORT).show();
+                Toast.makeText(workoutActivity.this,"Saved To History",Toast.LENGTH_SHORT).show();
                 openNewIntent();
                 startActivity(i);
             }

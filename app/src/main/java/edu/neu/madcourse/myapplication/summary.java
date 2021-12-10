@@ -53,7 +53,7 @@ public class summary extends AppCompatActivity {
         String e = sp.getString("exercise","");
         String r = sp.getString("rest","");
 
-        
+
 //        SharedPreferences sharedPreferences = getSharedPreferences("exercise", MODE_PRIVATE);
 //        Gson gson = new Gson();
 //        String json = sharedPreferences.getString("exercise", null);
