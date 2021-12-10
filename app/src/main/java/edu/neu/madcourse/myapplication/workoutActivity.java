@@ -162,7 +162,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     exerciseTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
-                    exercise_memory = oldValue +1;
+                    exercise_memory = newValue;
                     calculateTime();
                     openNewIntent();
                 }
@@ -181,7 +181,7 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
                 @Override
                 public void onValueChange(NumberPicker numberPicker, int oldValue, int newValue) {
                     restTime.setText(Time.getTimeArrayList().get(newValue).getMinute() +":"+ Time.getTimeArrayList().get(newValue).getSecond());
-                    rest_memory = oldValue + 1;
+                    rest_memory = newValue;
                     calculateTime();
                     openNewIntent();
                 }
