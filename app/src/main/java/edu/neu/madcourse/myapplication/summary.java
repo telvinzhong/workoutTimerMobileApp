@@ -23,16 +23,16 @@ public class summary extends AppCompatActivity {
     RecyclerView recyclerView;
     String s1[], s2[];
     TextView exe, rest, conditionTextView;
-//    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-//    DatabaseReference conditionRef = rootRef.child("exerciseTime");
+    DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+    DatabaseReference conditionRef = rootRef.child("exerciseTime");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
-//        rest = findViewById(R.id.rest);
-//        exe = findViewById(R.id.exercise);
-//        conditionTextView = findViewById(R.id.test);
+        rest = findViewById(R.id.rest);
+        exe = findViewById(R.id.exercise);
+        conditionTextView = findViewById(R.id.test);
 
         recyclerView = findViewById(R.id.recyclerView);
         s1 = getResources().getStringArray(R.array.exercise_times);
@@ -42,19 +42,19 @@ public class summary extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        conditionRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                String text = snapshot.getValue(String.class);
-//                conditionTextView.setText(text);
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        conditionRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String text = snapshot.getValue(String.class);
+                conditionTextView.setText(text);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
 }
