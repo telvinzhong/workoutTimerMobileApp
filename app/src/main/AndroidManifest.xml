@@ -20,12 +20,6 @@
             android:name=".SettingActivity"
             android:exported="true" />
         <activity
-            android:name=".restTimer"
-            android:exported="true" />
-        <activity
-            android:name=".exerciseList"
-            android:exported="true" />
-        <activity
             android:name=".Running"
             android:exported="true" />
         <activity
