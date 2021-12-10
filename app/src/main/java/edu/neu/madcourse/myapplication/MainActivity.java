@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.setting:
                 startActivity(new Intent(this, SettingActivity.class));
                 break;
+            case R.id.history:
+                startActivity(new Intent(this, summary.class));
+                break;
         }
     }
 }
