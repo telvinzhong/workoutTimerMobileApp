@@ -27,8 +27,8 @@ public class summary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
         rest = findViewById(R.id.rest);
-        exe = findViewById(R.id.exe);
-        conditionTextView = findViewById(R.id.update);
+        exe = findViewById(R.id.exercise);
+        conditionTextView = findViewById(R.id.test);
 
     }
     @Override
