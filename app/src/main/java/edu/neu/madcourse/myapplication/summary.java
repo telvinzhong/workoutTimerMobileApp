@@ -29,8 +29,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class summary extends AppCompatActivity {
-    //ArrayList<ExampleItem> mExampleList;
-    //ArrayList<ExampleItem> s1, s2;
+    List<ExampleItem> taskList;
     RecyclerView recyclerView;
     ArrayList<String> s1 = new ArrayList<String>();
     ArrayList<String> s2 = new ArrayList<String>();
@@ -38,35 +37,19 @@ public class summary extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        rest = findViewById(R.id.rest);
-//        exe = findViewById(R.id.exercise);
-//        conditionTextView = findViewById(R.id.conditionTextView);
-//        conditionTextView1 = findViewById(R.id.conditionTextView1);
-//        conditionTextView.setText(e);
-//        conditionTextView1.setText(r);
-//        setContentView(R.layout.test);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_summary);
         recyclerView = findViewById(R.id.recyclerView);
 
-        SharedPreferences sp = getApplicationContext().getSharedPreferences("exercise", Context.MODE_PRIVATE);
-        String e = sp.getString("exercise","");
-        String r = sp.getString("rest","");
+        taskList = prefConfig.readListFromPref(this);
+        if (taskList == null){
+            taskList = new ArrayList<>();
+        }
+        for (ExampleItem item : taskList){
+            s1.add(item.getExercise());
+            s2.add(item.getRest());
+        }
 
-
-//        SharedPreferences sharedPreferences = getSharedPreferences("exercise", MODE_PRIVATE);
-//        Gson gson = new Gson();
-//        String json = sharedPreferences.getString("exercise", null);
-//        Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
-//        mExampleList = gson.fromJson(json, type);
-//        if (mExampleList == null) {
-//            mExampleList = new ArrayList<>();
-//        }
-//        s1 = Arrays.asList(getResources().getStringArray(R.array.exercise_times));
-//        s2 = Arrays.asList(getResources().getStringArray(R.array.rest_times));
-
-        s1.add(e);
-        s2.add(r);
         MyAdapter myAdapter = new MyAdapter(this, s1, s2);
         recyclerView.setAdapter(myAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -22,11 +22,9 @@ import com.tomergoldst.tooltips.ToolTipsManager;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 public class workoutActivity extends AppCompatActivity implements ToolTipsManager.TipListener {
-    //ArrayList<ExampleItem> mExampleList;
-    SharedPreferences sp;
-
     private ConstraintLayout constraintLayout;
     private int exercise_memory = 17;
     private int rest_memory = 8;
@@ -61,6 +59,8 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private Button starttimer;
     static Dialog d;
 
+    List<ExampleItem> taskList;
+
     /**
      * round.getText().toString()
      * set.getText().toString()
@@ -91,8 +91,6 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         toolTipsManager = new ToolTipsManager(this);
         constraintLayout = findViewById(R.id.constraintlayout);
         starttimer = findViewById(R.id.starttimer);
-
-        sp = getSharedPreferences("exercise", Context.MODE_PRIVATE);
 
         setText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,39 +135,23 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         });
         calculateTime();
 
+        taskList = new ArrayList<>();
+
         starttimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferences.Editor editor = sp.edit();
-                editor.putString("exercise", totalExerciseTime.getText().toString());
-                editor.putString("rest", totalRestTime.getText().toString());
-                editor.commit();
+                saveData();
                 Toast.makeText(workoutActivity.this,"Saved To History",Toast.LENGTH_SHORT).show();
                 openNewIntent();
                 startActivity(i);
             }
         });
 }
-//    private void saveData(){
-//        SharedPreferences sharedPreferences = getSharedPreferences("exercise",MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(mExampleList);
-//        editor.putString("exercise", json);
-//        editor.apply();
-//        Toast.makeText(workoutActivity.this,"Info Saved", Toast.LENGTH_SHORT).show();
-//    }
-
-//    private void loadData(){
-//        SharedPreferences sharedPreferences = getSharedPreferences("exercise",MODE_PRIVATE);
-//        Gson gson = new Gson();
-//        String json = sharedPreferences.getString("exercise", null);
-//        Type type = new TypeToken<ArrayList<ExampleItem>>() {}.getType();
-//        mExampleList = gson.fromJson(json, type);
-//        if (mExampleList == null){
-//            mExampleList = new ArrayList<>();
-//        }
-//    }
+    private void saveData(){
+        ExampleItem exampleItem = new ExampleItem(totalExerciseTime.getText().toString(), totalRestTime.getText().toString());
+        taskList.add(exampleItem);
+        prefConfig.writeInPref(getApplicationContext(), taskList);
+    }
 
     public void openNewIntent(){
         i = new Intent(this, StartWorkOut.class);

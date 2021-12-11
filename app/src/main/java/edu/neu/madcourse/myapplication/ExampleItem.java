@@ -1,19 +1,19 @@
 package edu.neu.madcourse.myapplication;
 
 public class ExampleItem {
-    private String mLine1;
-    private String mLine2;
+    private String exercise;
+    private String rest;
 
-    public ExampleItem(String line1, String line2) {
-        mLine1 = line1;
-        mLine2 = line2;
+    public ExampleItem(String exercise, String rest) {
+        this.exercise = exercise;
+        this.rest = rest;
     }
 
-    public String getLine1() {
-        return mLine1;
+    public String getExercise() {
+        return exercise;
     }
 
-    public String getLine2() {
-        return mLine2;
+    public String getRest() {
+        return rest;
     }
 }
