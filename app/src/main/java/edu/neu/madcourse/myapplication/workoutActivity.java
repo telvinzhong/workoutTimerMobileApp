@@ -150,7 +150,9 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private void saveData(){
         String newExe = totalExerciseTime.getText().toString();
         String newRest = totalRestTime.getText().toString();
-        taskList = prefConfig.readListFromPref(this);
+        if (taskList.size() > 0){
+            taskList = prefConfig.readListFromPref(this);
+        }
         ExampleItem exampleItem = new ExampleItem(newExe, newRest);
         taskList.add(exampleItem);
         prefConfig.writeInPref(getApplicationContext(), taskList);
