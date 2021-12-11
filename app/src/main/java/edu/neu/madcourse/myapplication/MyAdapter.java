@@ -9,11 +9,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
-    String data1[], data2[];
+    List<String> data1, data2;
+    //ArrayList<ExampleItem> data1, data2;
     Context context;
 
-    public MyAdapter(Context ct, String s1[], String s2[]){
+    public MyAdapter(Context ct, List<String> s1, List<String>  s2){
         context = ct;
         data1 = s1;
         data2 = s2;
@@ -30,13 +34,13 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.myText1.setText("Exercise Time: " + data1[position]);
-        holder.myText2.setText("Rest Time: " + data2[position]);
+        holder.myText1.setText("Exercise Time: " + data1.get(position));
+        holder.myText2.setText("Rest Time: " + data2.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return data1.length;
+        return data1.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{

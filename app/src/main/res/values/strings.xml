@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">My Application</string>
     <string-array name="exercise_times">
-        <item>10 min</item>
-        <item>5 min</item>
+        <item>6 min</item>
+        <item>6 min</item>
         <item>7 min</item>
         <item>15 min</item>
     </string-array>
     <string-array name="rest_times">
-        <item>2 min</item>
-        <item>1 min</item>
+        <item>1:30 min</item>
+        <item>1:30 min</item>
         <item>1 min</item>
         <item>3 min</item>
     </string-array>

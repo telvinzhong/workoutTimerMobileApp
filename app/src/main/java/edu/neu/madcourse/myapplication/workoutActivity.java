@@ -1,6 +1,8 @@
 package edu.neu.madcourse.myapplication;
 
 import android.app.Dialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,12 +10,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+
 import com.tomergoldst.tooltips.ToolTip;
 import com.tomergoldst.tooltips.ToolTipsManager;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 public class workoutActivity extends AppCompatActivity implements ToolTipsManager.TipListener {
     private ConstraintLayout constraintLayout;
@@ -49,6 +57,8 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
     private Button breakTime;
     private Button starttimer;
     static Dialog d;
+
+    List<ExampleItem> taskList;
 
     /**
      * round.getText().toString()
@@ -124,14 +134,33 @@ public class workoutActivity extends AppCompatActivity implements ToolTipsManage
         });
         calculateTime();
 
+        taskList = new ArrayList<>();
+
         starttimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                saveData();
+                Toast.makeText(workoutActivity.this,"Saved To History",Toast.LENGTH_SHORT).show();
                 openNewIntent();
                 startActivity(i);
             }
         });
 }
+    private void saveData(){
+        String newExe = totalExerciseTime.getText().toString();
+        String newRest = totalRestTime.getText().toString();
+
+        ExampleItem exampleItem = new ExampleItem(newExe, newRest);
+        taskList.add(exampleItem);
+        List<ExampleItem> taskList1 = prefConfig.readListFromPref(this);
+        if (taskList1 != null){
+            for (ExampleItem item : taskList1) {
+                taskList.add(item);
+            }
+        }
+        prefConfig.writeInPref(getApplicationContext(), taskList);
+    }
+
     public void openNewIntent(){
         i = new Intent(this, StartWorkOut.class);
         i.putExtra("totalET", totalExerciseTime.getText().toString());
