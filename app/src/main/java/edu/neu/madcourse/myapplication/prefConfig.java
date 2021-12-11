@@ -12,14 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.PreferenceChangeEvent;
 
+
 public class prefConfig {
     public static void writeInPref(Context context, List<ExampleItem> list){
         Gson gson = new Gson();
         String jsonString = gson.toJson(list);
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString("key",jsonString);
-        editor.apply();
+        editor.putString("key", jsonString);
+        editor.commit();
     }
 
     public static List<ExampleItem> readListFromPref(Context context){
